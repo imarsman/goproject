@@ -2,6 +2,10 @@ version: 3
 
 output: prefixed
 
+vars:
+  ROOT:
+    sh: pwd
+
 tasks:
   test:
     cmds:
@@ -27,9 +31,9 @@ tasks:
     dir: bin/build/
     cmds:
       - zip -r {{.APP_NAME}}.zip {{.APP_NAME}}
-      - mv {{.APP_NAME}}.zip bin/build/builds/{{.APP_NAME}}/
+      - mv {{.APP_NAME}}.zip {{.ROOT}}/bin/build/builds/{{.APP_NAME}}/
       - tar -cvzf {{.APP_NAME}}.tar.gz {{.APP_NAME}}
-      - mv {{.APP_NAME}}.tar.gz bin/build/builds/{{.APP_NAME}}/
+      - mv {{.APP_NAME}}.tar.gz {{.ROOT}}/bin/build/builds/{{.APP_NAME}}/
 
   clean:
     cmds:
