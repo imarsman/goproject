@@ -7,8 +7,8 @@ version: 3
 
 # This build file is tailored for a Golang project with a
 # project_root/cmd/appname/Taskfile.yml and
-# project_root/bin/build/appname and
-# project_root/bin/build/builds/appname layout.
+# project_root/build/appname and
+# project_root/build/builds/appname layout.
 # More can be done to do things like put builds in a bin directory and add a
 # sibling config and log directory and other resources and to package that up in
 # a build. One could also use this to build a binary then build a Docker file to
@@ -22,9 +22,9 @@ vars:
   ROOT_DIR:
     sh: echo $(cd ../../ && pwd)
   BUILD_DIR:
-    sh: echo $(cd {{.ROOT_DIR}}/bin/build/ && pwd)
+    sh: echo $(cd {{.ROOT_DIR}}/build/ && pwd)
   # Get app builds dir
-  # Assuming {{.ROOT_DIR}}/bin/build/builds/{{.APP_NAME}}
+  # Assuming {{.ROOT_DIR}}/build/builds/{{.APP_NAME}}
   APP_BUILDS_DIR:
     sh: echo $(cd {{.BUILD_DIR}}/builds/{{.APP_NAME}} && pwd)
   # NAMESPACE is specific to Golang projects with modules.

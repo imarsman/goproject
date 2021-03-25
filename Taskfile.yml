@@ -2,40 +2,62 @@ version: 3
 
 output: prefixed
 
+# NOTES:
+# ------
+# This task copies the cmd/goproject files to build/builds/[project name]
+# You will need to modify the module gitlab.xml.team/xmlt/goproject
+# path in the resulting go.mod file to fit the proper root. If you are not using
+# a network accessible project git root substitute a simple project name, or
+# else substitute the new git root. You will need to replace the project root in
+# any .go files in the project as well. After you make these modifications you
+# will need to run `go mod vendor` to download dependencies.
+# The project comes with a sample Taskfile.yml. You will need to modify it to
+# suit the build requirements of the project.
+
+# This task should run on Linux and MacOS but has not been tested on Windows.
+# You can find more about the taskfile project at https://taskfile.dev
+# The layout for the project structure is based loosely on
+# https://github.com/golang-standards/project-layout
+
 vars:
+  # Get a variable to define the root path for later
   ROOT:
     sh: pwd
 
 tasks:
-  test:
-    cmds:
-      - echo "hello"
   default:
-    desc: Generate a base application layout with app name specified by APP_NAME
-      parameter
+    desc: Generate a base application layout with app name specified by
+      APP_NAME="[yourappname] parameter
     cmds:
       - task: clean
       - echo "Creating project package for {{.APP_NAME}}"
-      - rm -rf bin/build/{{.APP_NAME}} || true
-      - rm -rf bin/build/builds/{{.APP_NAME}} || true
-      - mkdir -p bin/build/{{.APP_NAME}}
-      - mkdir -p bin/build/builds/{{.APP_NAME}}
-      - cp -r cmd/goproject/ bin/build/{{.APP_NAME}}
-      - find bin/build/{{.APP_NAME}} -type d -empty -exec touch {}/.keep \;
+      - rm -rf build/{{.APP_NAME}} || true
+      - rm -rf build/builds/{{.APP_NAME}} || true
+      - mkdir -p build/{{.APP_NAME}}
+      - mkdir -p build/builds/{{.APP_NAME}}
+      - mkdir -p build/{{.APP_NAME}}/deployments
+      - mkdir -p build/{{.APP_NAME}}/builds
+      - mkdir -p build/{{.APP_NAME}}/test
+      - mkdir -p build/{{.APP_NAME}}/test/{{.APP_NAME}}
+      - mkdir -p build/{{.APP_NAME}}/basefiles
+      - touch build/{{.APP_NAME}}/deployments/docker-compose.yml
+      - mkdir -p build/{{.APP_NAME}}/tools
+      - cp -r cmd/goproject/ build/{{.APP_NAME}}
+      - find build/{{.APP_NAME}} -type d -empty -exec touch {}/.keep \;
       - task: package
     preconditions:
       - sh: "[ '{{.APP_NAME}}' != '' ]"
         msg: APP_NAME must be given. e.g. task APP_NAME="test"
 
   package:
-    dir: bin/build/
+    dir: build/
     cmds:
       - zip -r {{.APP_NAME}}.zip {{.APP_NAME}}
-      - mv {{.APP_NAME}}.zip {{.ROOT}}/bin/build/builds/{{.APP_NAME}}/
+      - mv {{.APP_NAME}}.zip {{.ROOT}}/build/builds/{{.APP_NAME}}/
       - tar -cvzf {{.APP_NAME}}.tar.gz {{.APP_NAME}}
-      - mv {{.APP_NAME}}.tar.gz {{.ROOT}}/bin/build/builds/{{.APP_NAME}}/
+      - mv {{.APP_NAME}}.tar.gz {{.ROOT}}/build/builds/{{.APP_NAME}}/
 
   clean:
     cmds:
-      - rm -rf bin/build/{{.APP_NAME}}
-      - rm -rf bin/build/builds/{{.APP_NAME}}
+      - rm -rf build/{{.APP_NAME}} || true
+      - rm -rf build/builds/{{.APP_NAME}} || true

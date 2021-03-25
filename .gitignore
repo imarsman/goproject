@@ -1,4 +1,10 @@
-bin/build/
-bin/build/builds/
-!bin/build/goproject/
-!bin/build/builds/goproject/
+#build/builds/*
+
+!builds/
+builds/*
+build/builds/goproject/*
+!build/builds/goproject/.keep
+!build/basefiles/
+!build/goproject/
+
+vendor
