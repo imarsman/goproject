@@ -11,32 +11,26 @@ tasks:
       parameter
     cmds:
       - task: clean
-      - rm -rf bin/build/{{.APP_NAME}}
-      - rm -rf bin/build/builds/{{.APP_NAME}}
+      - echo "Creating project package for {{.APP_NAME}}"
+      - rm -rf bin/build/{{.APP_NAME}} || true
+      - rm -rf bin/build/builds/{{.APP_NAME}} || true
       - mkdir -p bin/build/{{.APP_NAME}}
       - mkdir -p bin/build/builds/{{.APP_NAME}}
       - cp -r cmd/goproject/ bin/build/{{.APP_NAME}}
       - find bin/build/{{.APP_NAME}} -type d -empty -exec touch {}/.keep \;
-      - task: zip
-      - task: tar
+      - task: package
     preconditions:
       - sh: "[ '{{.APP_NAME}}' != '' ]"
         msg: APP_NAME must be given. e.g. task APP_NAME="test"
 
-  zip:
-    desc: Zip build files
+  package:
     dir: bin/build/
     cmds:
       - zip -r {{.APP_NAME}}.zip {{.APP_NAME}}
       - mv {{.APP_NAME}}.zip bin/build/builds/{{.APP_NAME}}/
-
-  tar:
-    desc: Tar and gzip build files
-    dir: bin/build/
-    cmds:
       - tar -cvzf {{.APP_NAME}}.tar.gz {{.APP_NAME}}
       - mv {{.APP_NAME}}.tar.gz bin/build/builds/{{.APP_NAME}}/
-  
+
   clean:
     cmds:
       - rm -rf bin/build/{{.APP_NAME}}
