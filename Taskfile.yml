@@ -34,8 +34,10 @@ tasks:
     cmds:
       - task: clean
       - echo "Creating project package for {{.APP_NAME}}"
+      # Clear out existing dirs for app
       - rm -rf build/{{.APP_NAME}} || true
       - rm -rf build/builds/{{.APP_NAME}} || true
+      # Add in base dirs
       - mkdir -p build/{{.APP_NAME}}
       - mkdir -p build/builds/{{.APP_NAME}}
       - mkdir -p build/{{.APP_NAME}}/deployments
@@ -46,8 +48,10 @@ tasks:
       - touch build/{{.APP_NAME}}/deployments/docker-compose.yml
       - mkdir -p build/{{.APP_NAME}}/tools
       - cp -r cmd/goproject/ build/{{.APP_NAME}}
+      # Add in .keep files to ensure that new git repo will have dirs.
       - find build/{{.APP_NAME}} -type d -empty -exec touch {}/.keep \;
       - task: package
+      # Clean up build files
       - rm -rf build/{{.APP_NAME}}
     preconditions:
       - sh: "[ '{{.APP_NAME}}' != '' ]"
