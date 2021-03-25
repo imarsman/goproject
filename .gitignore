@@ -1,0 +1,4 @@
+bin/build/
+bin/build/builds/
+!bin/build/goproject/
+!bin/build/builds/goproject/
