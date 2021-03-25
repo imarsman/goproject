@@ -1,7 +1,7 @@
 #build/builds/*
 
 !builds/
-builds/*
+build/builds/*
 build/builds/goproject/*
 !build/builds/goproject/.keep
 !build/basefiles/

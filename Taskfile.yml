@@ -26,8 +26,11 @@ vars:
 
 tasks:
   default:
-    desc: Generate a base application layout with app name specified by
-      APP_NAME="[yourappname] parameter
+    desc: | 
+      Generate a base application layout with app name specified by
+        - task APP_NAME="[yourappname]" 
+        The result will be a zipped or tar gzipped directory structure in 
+        - build/builds/[yourappname]/
     cmds:
       - task: clean
       - echo "Creating project package for {{.APP_NAME}}"
@@ -45,6 +48,7 @@ tasks:
       - cp -r cmd/goproject/ build/{{.APP_NAME}}
       - find build/{{.APP_NAME}} -type d -empty -exec touch {}/.keep \;
       - task: package
+      - rm -rf build/{{.APP_NAME}}
     preconditions:
       - sh: "[ '{{.APP_NAME}}' != '' ]"
         msg: APP_NAME must be given. e.g. task APP_NAME="test"
