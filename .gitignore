@@ -1,5 +1,3 @@
-#build/builds/*
-
 !builds/
 build/builds/*
 build/builds/goproject/*
