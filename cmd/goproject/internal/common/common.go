@@ -33,6 +33,11 @@ func AppName() string {
 	return appName
 }
 
+// AppName get the application name used in project hierarchy
+func AppBaseCodePath() string {
+	return appBaseCodePath
+}
+
 // GetFileContents get file contents. Useful for testing.
 func GetFileContents(path string) (contents []byte, err error) {
 	// path = TestBaseDir() + "/testfiles/" + path
