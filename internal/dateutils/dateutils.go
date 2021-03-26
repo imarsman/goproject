@@ -156,10 +156,15 @@ func ParseGetUTC(timeStr string) (*time.Time, error) {
 // format "%d.%09d", time.Unix(), int64(time.Nanosecond()))
 // if the incoming nanosecond portion is longer or shorter than 9 digits it is
 // converted to nanoseconds.  The expectation is that the seconds and
-// seconds will be used to create a time variable.  For example:
-//     seconds, nanoseconds, err := ParseTimestamp("1136073600.000000001",0)
-//     if err == nil since := time.Unix(seconds, nanoseconds)
-// 	   returns seconds as def(aultSeconds) if value == ""
+// seconds will be used to create a time variable.
+// For example:
+/*
+	var t int64
+    seconds, nanoseconds, err := ParseTimestamp("1136073600.000000001",0)
+    if err == nil {
+		t = time.Unix(seconds, nanoseconds)
+	}
+*/
 // From https://github.com/moby/moby/blob/master/api/types/time/timestamp.go
 // Part of Docker, under Apache licence.
 // https://github.com/docker/engine-api/blob/master/LICENSE
