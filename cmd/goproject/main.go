@@ -15,6 +15,9 @@ import (
 	"github.com/jwalton/gchalk"
 )
 
+// The Taskfile.yml generates the two files below. Golang 1.16 is required to
+// use the embed capability that became available in that release.
+
 //go:embed .appbuildts
 var appBuildTS string
 
