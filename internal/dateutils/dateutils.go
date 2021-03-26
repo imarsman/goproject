@@ -107,9 +107,20 @@ func TimesForDateRange(start, end string) (*time.Time, *time.Time, error) {
 // RangeDate returns a date range function over start date to end date inclusive.
 // After the end of the range, the range function returns a zero date,
 // date.IsZero() is true.
+//
+// Sample usage:
+//
+// for rd := dateutils.RangeDate(start, end); ; {
+// 	 date := rd()
+// 	 if date.IsZero() {
+// 	   break
+// 	 }
+// 	 indicesForDays[getIndexForDate(*date)] = ""
+// }
 func RangeDate(start, end time.Time) func() *time.Time {
 	start = start.In(time.UTC)
 	end = end.In(time.UTC)
+
 	y, m, d := start.Date()
 	start = time.Date(y, m, d, 0, 0, 0, 0, time.UTC)
 	y, m, d = end.Date()
