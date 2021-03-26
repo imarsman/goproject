@@ -15,14 +15,16 @@ particular format:
 
 ```BUILD_TS: '{{dateInZone "2006-01-02T15:04:05Z" (now) "UTC"}}'```
 
-The sample project has a date/time package and a package that can be used to do
-useful things like detect if code is running in a test and to get paths to
-various parts of a project's layout.
+The sample project has a date/time package very useful for timestamp parsing and
+formatting, ISO-8601 date format manipulation, and ISO-8601 period calculations.
+There is also a package that can be used to do useful things like detect if code
+is running in a test and to get paths to various parts of a project's layout.
+Most of the directory oriented common functions are useful in the context of
+testing. You can use them to do things like easily locate the path to a
+directory with test files and in production use to get the parent directory of a
+bin directory housing a build binary.
 
-The sample project also comes with its own build file that can be used to both
+The sample project also comes with its own taskdev file that can be used to both
 build and package a project's build. More can be done to accomplish things like
 putting things like config directories and files and log directories and files,
-etc. into the packaged build. Most of the directory oriented common functions
-are useful in the context of testing. You can use them to do things like easily
-locate the path to a directory with test files and in production use to get the
-parent directory of a bin directory housing a build binary.
+etc. into the packaged build.

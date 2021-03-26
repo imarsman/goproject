@@ -8,3 +8,4 @@ build/builds/goproject/*
 vendor
 cmd/goproject/.appbuildts
 cmd/goproject/.appbuildversion
+cmd/goproject/goproject
