@@ -6,7 +6,7 @@ outlined [here](https://github.com/golang-standards/project-layout). The taskdev
 website has instructions for installing the task tool, including using Go to do
 the build and install if you have Go installed. Taskdev is a lot like Gitlab's
 gitlab-ci.yml file in terms of being able to execute code, set variables, and
-use environment variables. It's syntax for variable epansion is slightly
+use environment variables. Its syntax for variable epansion is slightly
 different from that of Gitlab's gitlab-ci.yml because Taskdev uses Go's build in
 templating language with a few helper functions and variables added.
 
