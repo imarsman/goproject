@@ -78,7 +78,8 @@ var timeFormats = []string{
 	"2006-01-02T15-04-05.000000-07:00",
 	"2006-01-02T15-04-05.999999999-07:00",
 
-	time.RFC3339,
+	// time.RFC3339,
+	"2006-01-02T15:04:05Z07:00",
 }
 
 func makeTimestamp(ts int64) int64 {
@@ -132,6 +133,7 @@ func RangeDate(start, end time.Time) func() *time.Time {
 		}
 		date := start
 		start = start.AddDate(0, 0, 1)
+
 		return &date
 	}
 }

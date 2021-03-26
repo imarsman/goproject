@@ -10,6 +10,7 @@ import (
 	_ "embed"
 
 	"gitlab.xml.team/xmlt/goproject/cmd/goproject/internal/common"
+	"gitlab.xml.team/xmlt/goproject/internal/compress"
 	"gitlab.xml.team/xmlt/goproject/internal/dateutils"
 
 	"github.com/jwalton/gchalk"
@@ -28,6 +29,9 @@ func main() {
 	fmt.Println("hello world")
 	fmt.Println("App name", gchalk.Green(common.AppName()))
 	fmt.Println("Date for time.Now()", dateutils.DateForTime(time.Now()))
+	fmt.Println("string hello is compressed", compress.IsGzipped([]byte("hello")))
+	bytes, _ := compress.GzipBytes([]byte("hello"))
+	fmt.Println("compressed string hello bytes is compressed", compress.IsGzipped(bytes))
 
 	fmt.Println()
 	fmt.Println(gchalk.WithBlue().Bold("Sample Golang project"))
