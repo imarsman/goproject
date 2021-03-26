@@ -227,35 +227,35 @@ func ParseWithLocation(timeStr string, loc time.Location) (*time.Time, error) {
 // It is like time.RFC1123 but hard-codes GMT as the time zone. The time being
 // formatted must be in UTC for Format to generate the correct format. This is
 // done in the function before the call to format.
-func RFC7232(t time.Time) (formatted string) {
+func RFC7232(t time.Time) string {
 	t = t.In(time.UTC)
 
 	return t.Format(http.TimeFormat)
 }
 
 // ISO8601Long get ISO8601Long format string result
-func ISO8601Long(t time.Time) (formatted string) {
+func ISO8601Long(t time.Time) string {
 	t = t.In(time.UTC)
 
 	return t.Format("2006-01-02T15:04:05-07:00")
 }
 
 // ISO8601LongMsec get ISO8601Long format string result with msec
-func ISO8601LongMsec(t time.Time) (formatted string) {
+func ISO8601LongMsec(t time.Time) string {
 	t = t.In(time.UTC)
 
 	return t.Format("2006-01-02T15:04:05.000-07:00")
 }
 
 // ISO8601Short with no seconds
-func ISO8601Short(t time.Time) (formatted string) {
+func ISO8601Short(t time.Time) string {
 	t = t.In(time.UTC)
 
 	return t.Format("20060102T150405-0700")
 }
 
 // ISO8601ShortMsec with no seconds
-func ISO8601ShortMsec(t time.Time) (formatted string) {
+func ISO8601ShortMsec(t time.Time) string {
 	t = t.In(time.UTC)
 
 	return t.Format("20060102T150405.000-0700")
@@ -269,7 +269,7 @@ func IsPeriod(input string) bool {
 }
 
 // Period get period string
-func Period(input string) (output string, err error) {
+func Period(input string) (string, error) {
 	if IsPeriod(input) == false {
 		return "", fmt.Errorf("invalid period %s", input)
 	}
@@ -280,13 +280,13 @@ func Period(input string) (output string, err error) {
 }
 
 // PeriodFromDuration get period string from time.Duration
-func PeriodFromDuration(d time.Duration) (output string) {
+func PeriodFromDuration(d time.Duration) string {
 	p, _ := period.NewOf(d)
 	return p.String()
 }
 
 // PeriodPositive get period string
-func PeriodPositive(input string) (output string, err error) {
+func PeriodPositive(input string) (string, error) {
 	if IsPeriod(input) == false {
 		return "", fmt.Errorf("invalid period %s", input)
 	}
@@ -299,7 +299,7 @@ func PeriodPositive(input string) (output string, err error) {
 }
 
 // PeriodNegative get period string
-func PeriodNegative(input string) (output string, err error) {
+func PeriodNegative(input string) (string, error) {
 	if IsPeriod(input) == false {
 		return "", fmt.Errorf("invalid period %s", input)
 	}
