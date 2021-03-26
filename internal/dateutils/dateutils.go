@@ -109,15 +109,16 @@ func TimesForDateRange(start, end string) (*time.Time, *time.Time, error) {
 // After the end of the range, the range function returns a zero date,
 // date.IsZero() is true.
 //
-// Sample usage:
-//
-// for rd := dateutils.RangeDate(start, end); ; {
-// 	 date := rd()
-// 	 if date.IsZero() {
-// 	   break
-// 	 }
-// 	 indicesForDays[getIndexForDate(*date)] = ""
-// }
+// Sample usage assuming building a map with empty string values:
+/*
+  for rd := dateutils.RangeDate(start, end); ; {
+	 date := rd()
+	 if date.IsZero() {
+	   break
+	 }
+	 indicesForDays[getIndexForDate(*date)] = ""
+  }
+*/
 func RangeDate(start, end time.Time) func() *time.Time {
 	start = start.In(time.UTC)
 	end = end.In(time.UTC)
