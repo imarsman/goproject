@@ -101,10 +101,12 @@ tasks:
         vars: {OS: darwin, ARCHITECTURE: arm64, OS_NAME: mac}
 
   package:
-    desc: tar the builds
+    desc: tar gzip and zip the builds and move them to the builds dir
+    dir: "{{.BUILD_DIR}}"
     cmds:
-      - tar -zcf {{.APP_BUILDS_DIR}}/{{.APP_NAME}}-{{.BUILD_DATE}}.tar.gz -C {{.BUILD_DIR}} ./{{.APP_NAME}}
-      - cd {{.BUILD_DIR}} && zip {{.APP_NAME}}-{{.BUILD_DATE}}.zip -r ./{{.APP_NAME}}
+      - tar -zcf {{.APP_NAME}}-{{.BUILD_DATE}}.tar.gz ./{{.APP_NAME}}
+      - mv {{.BUILD_DIR}}/{{.APP_NAME}}-{{.BUILD_DATE}}.tar.gz {{.APP_BUILDS_DIR}}/
+      - zip {{.APP_NAME}}-{{.BUILD_DATE}}.zip -r ./{{.APP_NAME}}
       - mv {{.BUILD_DIR}}/{{.APP_NAME}}-{{.BUILD_DATE}}.zip {{.APP_BUILDS_DIR}}/
 
   info:
