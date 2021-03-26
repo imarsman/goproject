@@ -157,7 +157,10 @@ func ParseGetUTC(timeStr string) (*time.Time, error) {
 //     seconds, nanoseconds, err := ParseTimestamp("1136073600.000000001",0)
 //     if err == nil since := time.Unix(seconds, nanoseconds)
 // 	   returns seconds as def(aultSeconds) if value == ""
-// From https://galaxyweb.umassmed.edu/pub/dnext_data/singularity/kb-python/singularity1/vendor/github.com/docker/docker/api/types/time/timestamp.go
+// From https://github.com/moby/moby/blob/master/api/types/time/timestamp.go
+// Part of Docker, under Apache licence.
+// https://github.com/docker/engine-api/blob/master/LICENSE
+// The Apache Licence for this timeestamp parsing code is included with this package.
 func parseTimestamp(value string) (int64, int64, error) {
 	sa := strings.SplitN(value, ".", 2)
 	s, err := strconv.ParseInt(sa[0], 10, 64)
