@@ -290,7 +290,7 @@ func PeriodFromDuration(d time.Duration) string {
 	return p.String()
 }
 
-// PeriodPositive get period string
+// PeriodPositive get positive value of a period
 func PeriodPositive(input string) (string, error) {
 	if IsPeriod(input) == false {
 		return "", fmt.Errorf("invalid period %s", input)
@@ -303,7 +303,7 @@ func PeriodPositive(input string) (string, error) {
 	return p.String(), nil
 }
 
-// PeriodNegative get period string
+// PeriodNegative get negative value of period string
 func PeriodNegative(input string) (string, error) {
 	if IsPeriod(input) == false {
 		return "", fmt.Errorf("invalid period %s", input)
@@ -333,7 +333,6 @@ func PeriodAdd(t time.Time, input string) (*time.Time, error) {
 
 	newTime, _ := p.AddTo(t)
 	newTime = newTime.In(time.UTC)
-	// fmt.Printf("Input %v Period %s New time %v\n", t, input, newTime)
 
 	return &newTime, nil
 }
@@ -347,7 +346,6 @@ func PeriodSubtract(t time.Time, input string) (*time.Time, error) {
 
 	p, err := period.ParseWithNormalise(strings.ToUpper(input), true)
 	if err != nil {
-		// fmt.Print(err)
 		return &time.Time{}, err
 	}
 
@@ -410,6 +408,7 @@ func GetPeriodStringBetween(t1 time.Time, t2 time.Time) string {
 }
 
 // TimeForDate get time for date string
+// The returned value will have zero values for all time parts
 func TimeForDate(ds string) *time.Time {
 	d, err := date.Parse(date.ISO8601, ds)
 	if err != nil {
@@ -422,13 +421,15 @@ func TimeForDate(ds string) *time.Time {
 	return &t2
 }
 
-// IsDate is a date string of format 2006-01-02 valid
+// IsDate check if a date string is valid
+// Format 2006-01-02 valid
 func IsDate(ds string) bool {
 	_, err := date.Parse("2006-01-02", ds)
 	return err == nil
 }
 
 // DateForTime get date string for time
+// Format 2006-01-02
 func DateForTime(t time.Time) string {
 	t = t.In(time.UTC)
 
@@ -436,7 +437,8 @@ func DateForTime(t time.Time) string {
 	return d.Format(date.ISO8601)
 }
 
-// SameDate get date string for time
+// SameDate check whether the y, m, and d portions of a timestamp are
+// equivalent to a date string
 func SameDate(base string, t time.Time) bool {
 	t = t.In(time.UTC)
 
