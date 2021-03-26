@@ -48,6 +48,8 @@ tasks:
       - touch build/{{.APP_NAME}}/deployments/docker-compose.yml
       - mkdir -p build/{{.APP_NAME}}/tools
       - cp -r cmd/goproject/ build/{{.APP_NAME}}
+      - mkdir -p build/{{.APP_NAME}}/internal
+      - cp -r internal build/{{.APP_NAME}}/internal
       # Add in .keep files to ensure that new git repo will have dirs.
       - find build/{{.APP_NAME}} -type d -empty -exec touch {}/.keep \;
       - task: package

@@ -6,3 +6,5 @@ build/builds/goproject/*
 !build/goproject/
 
 vendor
+cmd/goproject/.appbuildts
+cmd/goproject/.appbuildversion
