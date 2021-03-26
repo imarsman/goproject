@@ -1,0 +1,11 @@
+!builds/
+build/builds/*
+build/builds/goproject/*
+!build/builds/goproject/.keep
+!build/basefiles/
+!build/goproject/
+
+vendor
+cmd/goproject/.appbuildts
+cmd/goproject/.appbuildversion
+cmd/goproject/goproject
