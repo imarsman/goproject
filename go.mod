@@ -1,4 +1,4 @@
-module gitlab.xml.team/xmlt/goproject
+module github.com/imarsman/goproject
 
 go 1.16
 
