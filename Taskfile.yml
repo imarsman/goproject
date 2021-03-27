@@ -5,7 +5,7 @@ output: prefixed
 # NOTES:
 # ------
 # This task copies the cmd/goproject files to build/builds/[project name] You
-# will need to modify the module gitlab.xml.team/xmlt/goproject path in the
+# will need to modify the module github.com/imarsman/goproject path in the
 # resulting go.mod file to fit the proper root for whatever your project's
 # module root path is. If you are not using a network accessible project git
 # root substitute a simple project name, or else substitute the new git root.

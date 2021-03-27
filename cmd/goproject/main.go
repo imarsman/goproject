@@ -9,9 +9,9 @@ import (
 
 	_ "embed"
 
-	"gitlab.xml.team/xmlt/goproject/cmd/goproject/internal/common"
-	"gitlab.xml.team/xmlt/goproject/internal/compress"
-	"gitlab.xml.team/xmlt/goproject/internal/dateutils"
+	"github.com/imarsman/goproject/cmd/goproject/internal/common"
+	"github.com/imarsman/goproject/internal/compress"
+	"github.com/imarsman/goproject/internal/dateutils"
 
 	"github.com/jwalton/gchalk"
 )
