@@ -38,36 +38,38 @@ tasks:
       # Clear out existing dirs for app
       - rm -rf build/{{.APP_NAME}} || true
       # Add in base dirs
-      - mkdir -p build/builds/{{.APP_NAME}}
-      - mkdir -p build/{{.APP_NAME}}/build/
+      - mkdir -p build/{{.APP_NAME}}/cmd/{{.APP_NAME}}/build/
       - mkdir -p build/{{.APP_NAME}}/deployments
       - mkdir -p build/{{.APP_NAME}}/test/{{.APP_NAME}}
-      - mkdir -p build/{{.APP_NAME}}/basefiles
+      - mkdir -p build/{{.APP_NAME}}/basefiles/{{.APP_NAME}}
       - touch build/{{.APP_NAME}}/deployments/docker-compose.yml
       - mkdir -p build/{{.APP_NAME}}/tools
       # Copy all starter project files to destination
-      - cp -r cmd/goproject/ build/{{.APP_NAME}}
-      - mkdir -p build/{{.APP_NAME}}/internal
+      - cp -r cmd/goproject/ build/{{.APP_NAME}}/
+      - mkdir -p build/{{.APP_NAME}}/cmd/{{.APP_NAME}}/internal
       # Copy top-level internal package files to dest internal package
       - cp -r internal build/{{.APP_NAME}}/internal
       # Add in .keep files to ensure that new git repo will have dirs.
       - find build/{{.APP_NAME}} -type d -empty -exec touch {}/.keep \;
+      - task: mod
       - task: package
       # Clean up build files
-      - rm -rf build/{{.APP_NAME}}
+      - task: clean
     preconditions:
       - sh: "[ '{{.APP_NAME}}' != '' ]"
         msg: APP_NAME must be given. e.g. task APP_NAME="test"
+
+  mod:
+    dir: build/{{.APP_NAME}}
+    cmds:
+      - go mod init {{.APP_NAME}}
 
   package:
     dir: build/
     cmds:
       - zip -r {{.APP_NAME}}.zip {{.APP_NAME}}
-      - mv {{.APP_NAME}}.zip {{.ROOT}}/build/builds/{{.APP_NAME}}/
       - tar -cvzf {{.APP_NAME}}.tar.gz {{.APP_NAME}}
-      - mv {{.APP_NAME}}.tar.gz {{.ROOT}}/build/builds/{{.APP_NAME}}/
 
   clean:
     cmds:
-      - rm -rf build/{{.APP_NAME}} || true
-      - rm -rf build/builds/{{.APP_NAME}} || true
+      - rm -rf build/{{.APP_NAME}}/ || true
