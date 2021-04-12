@@ -45,11 +45,17 @@ tasks:
       - mkdir -p build/{{.APP_NAME}}/basefiles/{{.APP_NAME}}
       - touch build/{{.APP_NAME}}/deployments/docker-compose.yml
       - mkdir -p build/{{.APP_NAME}}/tools
-      # Copy all starter project files to destination
-      - cp -r cmd/goproject/ build/{{.APP_NAME}}/
+      # - mv build/{{.APP_NAME}}/cmd/{{.APP_NAME}}/Taskfile.yml 
       - mkdir -p build/{{.APP_NAME}}/cmd/{{.APP_NAME}}/internal
       # Copy top-level internal package files to dest internal package
-      - cp -r internal build/{{.APP_NAME}}/internal
+      - cp -r internal build/{{.APP_NAME}}/
+      # Copy all starter project files to destination
+      - mkdir -p build/{{.APP_NAME}}/internal
+      - mkdir -p build/{{.APP_NAME}}/pkg
+      - cp -r cmd/goproject/internal build/{{.APP_NAME}}/cmd/{{.APP_NAME}}/
+      - cp -r cmd/goproject/pkg build/{{.APP_NAME}}/cmd/{{.APP_NAME}}/
+      - cp cmd/goproject/main.go build/{{.APP_NAME}}/cmd/{{.APP_NAME}}/
+      - cp cmd/goproject/Taskfile.yml build/{{.APP_NAME}}/cmd/{{.APP_NAME}}/
       # Add in .keep files to ensure that new git repo will have dirs.
       - find build/{{.APP_NAME}} -type d -empty -exec touch {}/.keep \;
       - task: mod
@@ -68,6 +74,8 @@ tasks:
   package:
     dir: build/
     cmds:
+      - rm {{.APP_NAME}}/{{.APP_NAME}}.zip || true
+      - rm {{.APP_NAME}}/{{.APP_NAME}}.tar.gz || true
       - zip -r {{.APP_NAME}}.zip {{.APP_NAME}}
       - tar -cvzf {{.APP_NAME}}.tar.gz {{.APP_NAME}}
 
