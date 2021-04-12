@@ -22,11 +22,11 @@ vars:
   ROOT_DIR:
     sh: echo $(cd ../../ && pwd)
   BUILD_DIR:
-    sh: echo $(cd {{.ROOT_DIR}}/build/ && pwd)
+    sh: echo $(cd {{.APP_BUILDS_DIR}}/build/ && pwd)
   # Get app builds dir
   # Assuming {{.ROOT_DIR}}/build/builds/{{.APP_NAME}}
   APP_BUILDS_DIR:
-    sh: echo $(cd {{.BUILD_DIR}}/builds/{{.APP_NAME}} && pwd)
+    sh: echo $(cd {{.BUILD_DIR}}/builds/ && pwd)
   # NAMESPACE is specific to Golang projects with modules.
   NAMESPACE: 
     sh: cat {{.ROOT_DIR}}/go.mod |head -1|cut -d ' ' -f2
