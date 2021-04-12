@@ -4,7 +4,7 @@ output: prefixed
 
 # NOTES:
 # ------
-# This task copies the cmd/goproject files to build/builds/[project name] You
+# This task copies the cmd/goproject files to build/[project name] You
 # will need to modify the module github.com/imarsman/goproject path in the
 # resulting go.mod file to fit the proper root for whatever your project's
 # module root path is. If you are not using a network accessible project git
@@ -15,9 +15,10 @@ output: prefixed
 # will need to modify it to suit the build requirements of the project but it
 # works fine for the base code.
 
-# This task should run on Linux and MacOS but has not been tested on Windows.
-# You can find more about the taskfile project at https://taskfile.dev
-# The layout for the project structure is based loosely on
+# This task should run on Linux and MacOS but has not been tested on Windows. It
+# may work on Windows using the Ubuntu subsystem. You can find more about the
+# taskfile project at https://taskfile.dev The layout for the project structure
+# is based loosely on
 # https://github.com/golang-standards/project-layout
 
 vars:
