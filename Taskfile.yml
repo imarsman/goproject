@@ -42,6 +42,7 @@ tasks:
       - mkdir -p build/{{.APP_NAME}}/cmd/{{.APP_NAME}}/build/
       - mkdir -p build/{{.APP_NAME}}/deployments
       - mkdir -p build/{{.APP_NAME}}/test/{{.APP_NAME}}
+      - mkdir -p build/{{.APP_NAME}}/build/{{.APP_NAME}}
       - mkdir -p build/{{.APP_NAME}}/basefiles/{{.APP_NAME}}
       - touch build/{{.APP_NAME}}/deployments/docker-compose.yml
       - mkdir -p build/{{.APP_NAME}}/tools
